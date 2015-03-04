@@ -2,18 +2,22 @@ buildscript {
     ext {
         springBootVersion = '1.2.2.RELEASE'
     }
+
     repositories {
         mavenCentral()
+        jcenter()
     }
+
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'com.bluepapa32:gradle-watch-plugin:0.1.5'
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'spring-boot' 
+apply plugin: 'spring-boot'
+apply plugin: 'com.bluepapa32.watch'
 
 jar {
     baseName = 'simple-app'
@@ -22,25 +26,56 @@ jar {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+ext {
+    springloadedVersion = '1.2.1.RELEASE'
+}
+
 repositories {
     mavenCentral()
 }
 
-
-dependencies {
-    compile("org.springframework.boot:spring-boot-starter-velocity")
-    compile("org.springframework.boot:spring-boot-starter-web")
-	runtime("mysql:mysql-connector-java")
-    testCompile("org.springframework.boot:spring-boot-starter-test") 
+configurations {
+    agent
 }
 
-eclipse {
-    classpath {
-         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+dependencies {
+    agent "org.springframework:springloaded:${springloadedVersion}"
+    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+    compile "org.springframework.boot:spring-boot-starter-web"
+	runtime "mysql:mysql-connector-java"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+// watch and reload ====================================================================================================
+// springloaded + idea + gradle need this.
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+watch {
+    java {
+        files files('src/main/java')
+        tasks 'compileJava'
+    }
 }
+
+task copyAgent(type: Copy) {
+    from configurations.agent
+    into "$buildDir/agent"
+}
+
+task watchThread() << {
+    Thread.start {
+        project.tasks.watch.execute()
+    }
+}
+
+run {
+    jvmArgs = ["-javaagent:${new File("$buildDir/agent/springloaded-${springloadedVersion}.jar").absolutePath}", '-noverify']
+}
+
+run.dependsOn(['copyAgent', 'watchThread'])
+task reloading(dependsOn: ['copyAgent', 'watchThread', 'run'])
