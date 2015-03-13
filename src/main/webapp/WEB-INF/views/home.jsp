@@ -10,5 +10,6 @@
 </h1>
 	<P>The time on the server is ${serverTime}. </P>
 	<p>The locale is ${locale}</p>
+	<p>I'm ${person.name}</p>
 </body>
 </html>

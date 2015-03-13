@@ -3,7 +3,8 @@ This is a java boilerplate project using spring and gradle with eclipse-support.
 
 # Features
 * Basic mvc structure
+* Test-framework: jUnit
 
 # Todos
-* Data persistence strategy
-* deploy
+* Data Store: hibernate + migration strategy
+* Deploy

@@ -27,7 +27,6 @@ dependencies {
 	
 	// template engine
 	providedCompile 'javax.servlet.jsp:jsp-api:2.2'
-	compile 'javax.servlet:jstl:1.2'
 	compile 'taglibs:standard:1.1.2'
 	
 	// logger
@@ -43,10 +42,13 @@ dependencies {
     
     // test
     testCompile 'junit:junit:4.+'
+    testCompile 'org.mockito:mockito-all:1.10.19'
 }
 
 test {
-    systemProperties 'property': 'value'
+	testLogging {
+		exceptionFormat = 'full'
+	}
 }
 
 uploadArchives {
