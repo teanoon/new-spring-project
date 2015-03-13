@@ -1,81 +1,58 @@
-buildscript {
-    ext {
-        springBootVersion = '1.2.2.RELEASE'
-    }
-
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath 'com.bluepapa32:gradle-watch-plugin:0.1.5'
-    }
-}
-
 apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'spring-boot'
-apply plugin: 'com.bluepapa32.watch'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
 
-jar {
-    baseName = 'simple-app'
-    version = '0.0.1-SNAPSHOT'
-}
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
 
-ext {
-    springloadedVersion = '1.2.1.RELEASE'
+version = '1.0'
+war {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                   'Implementation-Version': version
+    }
 }
 
 repositories {
     mavenCentral()
 }
 
-configurations {
-    agent
+ext {
+	springframeworkversion = '3.2.13.RELEASE'
 }
 
 dependencies {
-    agent "org.springframework:springloaded:${springloadedVersion}"
-    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
-    compile "org.springframework.boot:spring-boot-starter-web"
-	runtime "mysql:mysql-connector-java"
-    testCompile "org.springframework.boot:spring-boot-starter-test"
+	// framework
+	compile "org.springframework:spring-context:${springframeworkversion}"
+	compile "org.springframework:spring-webmvc:${springframeworkversion}"
+	
+	// template engine
+	providedCompile 'javax.servlet.jsp:jsp-api:2.2'
+	compile 'javax.servlet:jstl:1.2'
+	compile 'taglibs:standard:1.1.2'
+	
+	// logger
+	compile 'org.slf4j:slf4j-api:1.6.6'
+	
+	// helpers
+	compile 'org.projectlombok:lombok:1.16.2'
+    compile 'commons-collections:commons-collections:3.2'
+    compile 'javax.inject:javax.inject:1'
+    
+    // servlet
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    
+    // test
+    testCompile 'junit:junit:4.+'
 }
 
-// watch and reload ====================================================================================================
-// springloaded + idea + gradle need this.
-idea {
-    module {
-        inheritOutputDirs = false
-        outputDir = file("$buildDir/classes/main/")
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
     }
 }
-
-watch {
-    java {
-        files files('src/main/java')
-        tasks 'compileJava'
-    }
-}
-
-task copyAgent(type: Copy) {
-    from configurations.agent
-    into "$buildDir/agent"
-}
-
-task watchThread() << {
-    Thread.start {
-        project.tasks.watch.execute()
-    }
-}
-
-run {
-    jvmArgs = ["-javaagent:${new File("$buildDir/agent/springloaded-${springloadedVersion}.jar").absolutePath}", '-noverify']
-}
-
-run.dependsOn(['copyAgent', 'watchThread'])
-task reloading(dependsOn: ['copyAgent', 'watchThread', 'run'])
