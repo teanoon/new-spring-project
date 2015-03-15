@@ -19,3 +19,5 @@ This is a java boilerplate project using spring and gradle with eclipse-support.
 * Guard-Livereload:
   * Change one, test one.
   * Re-test failed ones.
+* AOP
+* Custom Annotation
