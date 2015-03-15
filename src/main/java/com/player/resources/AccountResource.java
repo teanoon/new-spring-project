@@ -10,7 +10,7 @@ import org.springframework.hateoas.ResourceSupport;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.player.models.Account;
+import com.player.models.entities.Account;
 
 public class AccountResource extends ResourceSupport {
 	@Getter @Setter private String loginName;

@@ -1,4 +1,4 @@
-package com.player.models;
+package com.player.models.entities;
 
 import java.util.Date;
 

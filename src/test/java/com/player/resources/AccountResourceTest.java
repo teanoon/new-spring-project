@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 
+import com.player.resources.AccountResource;
+
 
 public class AccountResourceTest {
 	private AccountResource accountResource = new AccountResource();

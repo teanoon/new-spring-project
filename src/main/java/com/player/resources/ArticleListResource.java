@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.hateoas.ResourceSupport;
 
-import com.player.models.Article;
+import com.player.models.entities.Article;
 
 import lombok.Getter;
 import lombok.Setter;

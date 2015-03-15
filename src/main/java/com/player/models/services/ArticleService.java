@@ -1,9 +1,9 @@
-package com.player.services;
+package com.player.models.services;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.player.models.Article;
+import com.player.models.entities.Article;
 
 public interface ArticleService {
 	public List<Article> articles = new ArrayList<Article>();

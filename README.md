@@ -4,9 +4,12 @@ This is a java boilerplate project using spring and gradle with eclipse-support.
 # Features
 * Basic MVC structure with a service layer
 * Test-framework: jUnit
+* Data Persistence:
+  * Hibernate integration
+  * Migration strategy
+  * Annotation configuration
 
 # Todos
-* Data Store: hibernate + migration strategy
 * Deploy
 * Modern frontend: sass + coffee
 * Enhanced MVC:

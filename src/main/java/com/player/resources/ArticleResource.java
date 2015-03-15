@@ -7,8 +7,8 @@ import lombok.Setter;
 
 import org.springframework.hateoas.ResourceSupport;
 
-import com.player.models.Account;
-import com.player.models.Blog;
+import com.player.models.entities.Account;
+import com.player.models.entities.Blog;
 
 public class ArticleResource extends ResourceSupport {
 	@Getter @Setter private String title;
