@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.player.models.Person;
+import com.player.models.Account;
 
 /**
  * Handles requests for the application home page.
@@ -33,12 +33,13 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		Person person = new Person();
-		person.setName( "Better.Chen" );
+		Account account = new Account();
+		account.setFirstName( "Chen" );
+		account.setLastName( "Better" );
 
 		model.addAttribute( "serverTime", formattedDate );
 		model.addAttribute( "locale", locale );
-		model.addAttribute( "person", person );
+		model.addAttribute( "account", account );
 		
 		return "home";
 	}
