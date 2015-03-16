@@ -17,7 +17,7 @@ repositories {
 }
 
 ext {
-	springframeworkversion = '3.2.13.RELEASE'
+	springframeworkversion = '4.1.5.RELEASE'
 }
 
 dependencies {
@@ -28,10 +28,9 @@ dependencies {
 	// data persistence
 	compile "org.springframework:spring-orm:${springframeworkversion}"
     compile 'org.springframework.data:spring-data-jpa:1.7.2.RELEASE'
-	runtime 'mysql:mysql-connector-java:5.1.32'
-	compile 'org.hibernate:hibernate-core:4.3.6.Final'
-	compile 'org.apache.tomcat:tomcat-dbcp:7.0.55'
-	compile 'org.javassist:javassist:3.18.2-GA'
+    compile 'com.h2database:h2:1.4.179'
+    compile 'org.hibernate:hibernate-entitymanager:4.3.5.Final'
+    compile 'org.apache.commons:commons-dbcp2:2.0.1'
 	
 	// template engine
 	providedCompile 'javax.servlet.jsp:jsp-api:2.2'

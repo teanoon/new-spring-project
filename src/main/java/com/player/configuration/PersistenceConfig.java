@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({ "classpath:persistence-mysql.properties" })
+@PropertySource({ "classpath:persistence-h2.properties" })
 @ComponentScan({ "com.player.models" })
 public class PersistenceConfig {
 
@@ -61,11 +61,11 @@ public class PersistenceConfig {
       return new PersistenceExceptionTranslationPostProcessor();
    }
 
+   @SuppressWarnings("serial")
    Properties hibernateProperties() {
       return new Properties() {
          {
             setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-            setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
             setProperty("hibernate.globally_quoted_identifiers", "true");
          }
       };
