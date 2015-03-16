@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Blog {
 	@Id @GeneratedValue
-	private Long id;
+	private int id;
 	private String title;
 	private Account account;
 }

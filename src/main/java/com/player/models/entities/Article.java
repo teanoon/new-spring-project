@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Article {
-	private Long id;
+	private int id;
 	private String title;
 	private String content;
 	private Blog blog;

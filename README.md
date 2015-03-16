@@ -9,13 +9,16 @@ This is a java boilerplate project using spring and gradle with eclipse-support.
   * Migration strategy
   * Annotation configuration
 
-# Todos
-* Deploy
-* Modern frontend: sass + coffee
+# Working
 * Enhanced MVC:
   * CRUD
   * Responders
   * Exceptions
+
+# Todos
+* Deploy and logger
+* Security
+* Modern frontend: sass + coffee
 * Guard-Livereload:
   * Change one, test one.
   * Re-test failed ones.
